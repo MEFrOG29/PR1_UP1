@@ -8,19 +8,24 @@
              x:DataType="vm:RegistrationViewModel"> 
     <StackPanel>
 		<TextBox Watermark="Login"
+                 Width="200"
                  Text="{Binding User.Login}"/>
         <TextBox Watermark="Password"
+                 Width="200"
                  TextInputOptions.ContentType="Password"
                  PasswordChar="*"
                  Text="{Binding User.Password}"/>
         <TextBox Watermark="Confirm password"
+                 Width="200"
                  TextInputOptions.ContentType="Password"
                  PasswordChar="*"
                  Text="{Binding User.ConfirmPassword}"/>
         <TextBox Watermark="Email"
+                 Width="200"
                  TextInputOptions.ContentType="Email"
                  Text="{Binding User.Email}"/>
         <TextBox Watermark="Phone"
+                 Width="200"
                  TextInputOptions.ContentType="Number"
                  Text="{Binding User.Phone}"/>
     </StackPanel>

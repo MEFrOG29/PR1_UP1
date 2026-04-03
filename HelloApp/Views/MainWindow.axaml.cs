@@ -8,5 +8,14 @@ namespace HelloApp.Views
         {
             InitializeComponent();
         }
+
+        private void AuthorizationButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            
+        }
+
+        private void RegistrationButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+        }
     }
 }
