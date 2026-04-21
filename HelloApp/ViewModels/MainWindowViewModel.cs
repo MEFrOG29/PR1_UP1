@@ -5,27 +5,30 @@ namespace HelloApp.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
+        private readonly NavigationService _navigation;
+
         [ObservableProperty]
-        public ViewModelBase currentPage;
+        private ViewModelBase currentPage;
 
-        public static NavigationService Navigation {  get; private set; }
 
-        [RelayCommand]
-        private void Authorization()
+        public MainWindowViewModel(NavigationService navigation)
         {
-            MainWindowViewModel.Navigation.NavigateTo(new AuthorizationViewModel());
+            _navigation = navigation;
+
+            _navigation.PropertyChanged += Navigation_PropertyChanged;
+
+            _navigation.NavigateTo<AuthorizationViewModel>();
+
+            CurrentPage = _navigation.CurrentView;
         }
 
-        [RelayCommand]
-        private void Registration()
+        private void Navigation_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            MainWindowViewModel.Navigation.NavigateTo(new RegistrationViewModel());
-        }
-
-        public MainWindowViewModel()
-        {
-            Navigation = new NavigationService(this);
-            Navigation.NavigateTo(new AuthorizationViewModel());
+            if (e.PropertyName == nameof(NavigationService.CurrentView))
+            {
+                // Мы берем НОВОЕ значение из сервиса и кладем в СВОЕ свойство
+                CurrentPage = _navigation.CurrentView;
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using HelloApp.ViewModels;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using HelloApp.ViewModels;
 using HelloApp.Views;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,33 +10,41 @@ using System.Threading.Tasks;
 
 namespace HelloApp
 {
-    public class NavigationService
+    public partial class NavigationService: ObservableObject
     {
         private readonly Stack<ViewModelBase> history = new();
-        private readonly MainWindowViewModel _mainWindowViewModel;
-        
-        public NavigationService(MainWindowViewModel mainWindowViewModel)
+
+        [ObservableProperty]
+        private ViewModelBase currentView;
+
+        public NavigationService()
         {
-            _mainWindowViewModel = mainWindowViewModel;
         }
 
         public void NavigateTo<T>(T viewModel, Action<T> action = null) where T : ViewModelBase
         {
             action?.Invoke(viewModel);
 
-            if(_mainWindowViewModel.CurrentPage != null)
+            if(CurrentView!= null)
             {
-                history.Push(_mainWindowViewModel.CurrentPage);
+                history.Push(CurrentView);
             }
 
-            _mainWindowViewModel.CurrentPage = viewModel;
+            CurrentView = viewModel;
         }
+
+        public void NavigateTo<T>(Action<T>? action = null) where T :ViewModelBase
+        {
+            var viewModel = App.Services.GetRequiredService<T>();
+            NavigateTo(viewModel, action);
+        }
+
 
         public void GoBack()
         {
             if(history.Count > 0)
             {
-                _mainWindowViewModel.CurrentPage = history.Pop();
+                CurrentView = history.Pop();
             }
         }
     }

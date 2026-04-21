@@ -10,16 +10,5 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="HelloApp"
         FontFamily="Segoe UI">
-    <StackPanel>
-		<ContentControl Content="{Binding CurrentPage}"/>
-        <Button HorizontalAlignment="Center" x:Name="AuthorizationButton" 
-                Content="Authorization" 
-                Command="{Binding AuthorizationCommand}"/>
-        <Button HorizontalAlignment="Center" x:Name="RegistrationButton" 
-                Content="Registration" 
-                Command="{Binding RegistrationCommand}" 
-                Margin="0, 10, 0, 0"/>
-    </StackPanel>   
-
-   
+    <ContentControl Content="{Binding CurrentPage}" />
 </Window>

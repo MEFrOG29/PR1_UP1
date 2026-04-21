@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,18 @@ namespace HelloApp.ViewModels
     {
         [ObservableProperty]
         private UserCreditionals _user = new();
+
+        private readonly NavigationService _navigation;
+
+        public RegistrationViewModel(NavigationService navigation)
+        {
+            _navigation = navigation;
+        }
+
+        [RelayCommand]
+        private void Authorization()
+        {
+            _navigation.GoBack();
+        }
     }
 }
